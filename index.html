@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Comandi ct + tmux</title>
+<style>
+  @page { size: A4; margin: 18mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a; max-width: 720px; margin: 24px auto; padding: 0 20px;
+    line-height: 1.45;
+  }
+  h1 { font-size: 22px; margin: 0 0 2px; }
+  .sub { color: #666; font-size: 13px; margin: 0 0 20px; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 22px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { background: #f2f2f2; font-size: 13px; }
+  td.cmd { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 13px; white-space: nowrap; }
+  .grp td { background: #fafafa; font-weight: 600; }
+  .note { background: #f7f9fc; border-left: 3px solid #4a7fbf; padding: 10px 14px; font-size: 13px; border-radius: 0 4px 4px 0; }
+  .note b { color: #2c5aa0; }
+  kbd {
+    font-family: "SF Mono", Menlo, monospace; font-size: 12px;
+    background: #eee; border: 1px solid #ccc; border-radius: 3px; padding: 1px 5px;
+  }
+  footer { margin-top: 24px; color: #999; font-size: 11px; text-align: right; }
+</style>
+</head>
+<body>
+  <h1>Comandi essenziali — <code>ct</code> + tmux</h1>
+  <p class="sub">Aprire Claude Code nella cartella giusta, con sessioni persistenti. Bologna Gomme — Nello Sacco.</p>
+
+  <table>
+    <thead>
+      <tr><th style="width:58%">Cosa voglio fare</th><th>Comando / Tasti</th></tr>
+    </thead>
+    <tbody>
+      <tr class="grp"><td colspan="2">Aprire un progetto</td></tr>
+      <tr><td>Scegliere da lista interattiva</td><td class="cmd">ct</td></tr>
+      <tr><td>&nbsp;&nbsp;→ filtrare la lista</td><td class="cmd">scrivo qualche lettera</td></tr>
+      <tr><td>&nbsp;&nbsp;→ muovermi</td><td class="cmd">frecce ↑ ↓</td></tr>
+      <tr><td>&nbsp;&nbsp;→ aprire</td><td class="cmd">Invio</td></tr>
+      <tr><td>&nbsp;&nbsp;→ annullare</td><td class="cmd">ESC</td></tr>
+      <tr><td>Aprire un progetto di cui so il nome</td><td class="cmd">ct NomeProgetto</td></tr>
+      <tr><td>Nome parziale + menu a frecce</td><td class="cmd">ct Anal &nbsp;poi&nbsp; Tab</td></tr>
+
+      <tr class="grp"><td colspan="2">Durante la sessione</td></tr>
+      <tr><td>Staccarmi lasciando Claude in esecuzione</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; d</td></tr>
+      <tr><td>Rientrare nella sessione di prima</td><td class="cmd">ct NomeProgetto</td></tr>
+      <tr><td>Scorrere indietro nella cronologia</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; [ &nbsp;(q esce)</td></tr>
+
+      <tr class="grp"><td colspan="2">Gestione sessioni</td></tr>
+      <tr><td>Vedere le sessioni tmux aperte</td><td class="cmd">tmux ls</td></tr>
+      <tr><td>Chiudere del tutto una sessione</td><td class="cmd">tmux kill-session -t Nome</td></tr>
+    </tbody>
+  </table>
+
+  <p class="note">
+    <b>Da ricordare.</b> &nbsp;•&nbsp; Le modifiche valgono dai <b>terminali nuovi</b> (o dopo <span class="cmd">source ~/.zshrc</span>).
+    &nbsp;•&nbsp; <kbd>Ctrl-b</kbd> è il tasto magico di tmux: si preme <b>prima</b>, si rilascia, poi il secondo tasto.
+    &nbsp;•&nbsp; <span class="cmd">ct</span> da solo apre anche la root del vault (Coordinatrice Tara).
+  </p>
+
+  <footer>Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc</footer>
+</body>
+</html>
