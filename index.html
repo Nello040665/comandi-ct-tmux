@@ -20,6 +20,8 @@
   .grp td { background: #fafafa; font-weight: 600; }
   .note { background: #f7f9fc; border-left: 3px solid #4a7fbf; padding: 10px 14px; font-size: 13px; border-radius: 0 4px 4px 0; }
   .note b { color: #2c5aa0; }
+  .warn { background: #fdf2f2; border-left: 3px solid #c0392b; padding: 10px 14px; font-size: 13px; border-radius: 0 4px 4px 0; margin-bottom: 22px; }
+  .warn b { color: #c0392b; }
   kbd {
     font-family: "SF Mono", Menlo, monospace; font-size: 12px;
     background: #eee; border: 1px solid #ccc; border-radius: 3px; padding: 1px 5px;
@@ -62,6 +64,13 @@
     </tbody>
   </table>
 
+  <p class="warn">
+    <b>⚠️ Attenzione ai due comandi "grossi".</b><br>
+    &nbsp;•&nbsp; <span class="cmd">tmux kill-server</span> = <b>nuke totale</b>: chiude TUTTE le sessioni, <b>compresa quella dove sta girando Claude Code adesso</b>. Il pannello ti si chiude di colpo. Usalo solo quando hai <b>finito tutto</b>.<br>
+    &nbsp;•&nbsp; <span class="cmd">tmux kill-session -a</span> = scelta <b>di tutti i giorni</b>: fa pulizia delle vecchie sessioni ma <b>risparmia quella in cui sei ora</b>.<br>
+    &nbsp;•&nbsp; Regola pratica: <b>default <span class="cmd">-a</span></b>, <span class="cmd">kill-server</span> solo a fine giornata.
+  </p>
+
   <p class="note">
     <b>Regola sui nomi.</b> &nbsp;•&nbsp; Nome con <b>spazi</b> → sempre tra <b>"virgolette doppie"</b>. Se scrivi il nome senza virgolette il terminale legge ogni parola come pezzo separato e risponde <span class="cmd">too many arguments</span>.
     &nbsp;•&nbsp; Nome con caratteri di controllo o invisibili (come <span class="cmd">\033</span>, il carattere ESC) → tra <b>'apici singoli'</b>, così il terminale lo legge alla lettera senza interpretarlo.
@@ -77,7 +86,7 @@
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-06 21:47
+    · Ultimo aggiornamento: 2026-07-06 22:19
   </footer>
 </body>
 </html>
