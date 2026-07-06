@@ -53,8 +53,20 @@
       <tr class="grp"><td colspan="2">Gestione sessioni</td></tr>
       <tr><td>Vedere le sessioni tmux aperte</td><td class="cmd">tmux ls</td></tr>
       <tr><td>Chiudere del tutto una sessione</td><td class="cmd">tmux kill-session -t Nome</td></tr>
+
+      <tr class="grp"><td colspan="2">Chiudere sessioni "ostinate"</td></tr>
+      <tr><td>Nome con <b>spazi</b> dentro → virgolette doppie</td><td class="cmd">tmux kill-session -t "Fatture Fornitori Esteri"</td></tr>
+      <tr><td>Nome con <b>caratteri strani/invisibili</b> (es. <span class="cmd">\033</span>) → apici singoli</td><td class="cmd">tmux kill-session -t '\033'</td></tr>
+      <tr><td>Chiudere <b>tutte tranne</b> quella in cui sono ora <b>(più sicuro)</b></td><td class="cmd">tmux kill-session -a</td></tr>
+      <tr><td>Piazza pulita <b>totale</b> (chiude anche quella in uso!)</td><td class="cmd">tmux kill-server</td></tr>
     </tbody>
   </table>
+
+  <p class="note">
+    <b>Regola sui nomi.</b> &nbsp;•&nbsp; Nome con <b>spazi</b> → sempre tra <b>"virgolette doppie"</b>. Se scrivi il nome senza virgolette il terminale legge ogni parola come pezzo separato e risponde <span class="cmd">too many arguments</span>.
+    &nbsp;•&nbsp; Nome con caratteri di controllo o invisibili (come <span class="cmd">\033</span>, il carattere ESC) → tra <b>'apici singoli'</b>, così il terminale lo legge alla lettera senza interpretarlo.
+    &nbsp;•&nbsp; Una sessione <b>(attached)</b> la stai usando ora: <b>non chiuderla</b>. Chiudi solo quelle <b>senza</b> (attached).
+  </p>
 
   <p class="note">
     <b>Da ricordare.</b> &nbsp;•&nbsp; Le modifiche valgono dai <b>terminali nuovi</b> (o dopo <span class="cmd">source ~/.zshrc</span>).
@@ -62,6 +74,10 @@
     &nbsp;•&nbsp; <span class="cmd">ct</span> da solo apre anche la root del vault (Coordinatrice Tara).
   </p>
 
-  <footer>Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc</footer>
+  <footer>
+    Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
+    Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
+    · Ultimo aggiornamento: 2026-07-06 21:47
+  </footer>
 </body>
 </html>
