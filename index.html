@@ -55,6 +55,13 @@
       <tr><td>Rientrare nella sessione di prima</td><td class="cmd">ct NomeProgetto</td></tr>
       <tr><td>Scorrere indietro nella cronologia</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; [ &nbsp;(q esce)</td></tr>
 
+      <tr class="grp"><td colspan="2">Riconnettersi a una sessione aperta</td></tr>
+      <tr><td>Vedere l'elenco con i nomi</td><td class="cmd">tmux ls</td></tr>
+      <tr><td>Rientrare in una sessione <b>(modo semplice)</b></td><td class="cmd">ct NomeProgetto</td></tr>
+      <tr><td>Rientrare con tmux "puro" — <b>il <span class="cmd">-t</span> è obbligatorio</b></td><td class="cmd">tmux attach -t NomeProgetto</td></tr>
+      <tr><td>Sessione segnata <b>(attached)</b> ma nessuna finestra aperta → <b>forzare</b> l'aggancio</td><td class="cmd">tmux attach -d -t NomeProgetto</td></tr>
+      <tr><td>Saltare tra le sessioni <b>senza uscire</b> (menu a frecce)</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; s</td></tr>
+
       <tr class="grp"><td colspan="2">Gestione sessioni</td></tr>
       <tr><td>Vedere le sessioni tmux aperte</td><td class="cmd">tmux ls</td></tr>
       <tr><td>Chiudere del tutto una sessione</td><td class="cmd">tmux kill-session -t Nome</td></tr>
@@ -87,6 +94,12 @@
   </p>
 
   <p class="note">
+    <b>Riconnettersi senza sbagliare.</b> &nbsp;•&nbsp; Il modo più semplice per rientrare è lo <b>stesso <span class="cmd">ct NomeProgetto</span></b> che usi per aprire: se la sessione esiste già ti ci <b>riaggancia</b>, non ne crea una nuova.
+    &nbsp;•&nbsp; Con tmux "puro" ricorda il <b><span class="cmd">-t</span></b>: si scrive <span class="cmd">tmux attach -t Nome</span>, <b>non</b> <span class="cmd">tmux attach Nome</span> (senza <span class="cmd">-t</span> sembra "non funzionare").
+    &nbsp;•&nbsp; Se una sessione è segnata <b>(attached)</b> ma <b>non hai nessuna finestra aperta</b> con quel nome, è un <b>aggancio fantasma</b> (un terminale vecchio o l'altro Mac): sbloccala con <span class="cmd">tmux attach -d -t Nome</span> — il <span class="cmd">-d</span> stacca il fantasma e aggancia te.
+  </p>
+
+  <p class="note">
     <b>Da ricordare.</b> &nbsp;•&nbsp; Le modifiche valgono dai <b>terminali nuovi</b> (o dopo <span class="cmd">source ~/.zshrc</span>).
     &nbsp;•&nbsp; <kbd>Ctrl-b</kbd> è il tasto magico di tmux: si preme <b>prima</b>, si rilascia, poi il secondo tasto.
     &nbsp;•&nbsp; <span class="cmd">ct</span> da solo apre la <b>lista</b> dei progetti; per la <b>root</b> del vault (Coordinatrice Tara) si usa <span class="cmd">ct .</span>
@@ -95,7 +108,7 @@
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-08 21:26
+    · Ultimo aggiornamento: 2026-07-10
   </footer>
 </body>
 </html>
