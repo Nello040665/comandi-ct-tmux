@@ -38,7 +38,7 @@
       <tr><th style="width:58%">Cosa voglio fare</th><th>Comando / Tasti</th></tr>
     </thead>
     <tbody>
-      <tr class="grp"><td colspan="2">Aprire un progetto</td></tr>
+      <tr class="grp"><td colspan="2">① Aprire / entrare in un progetto</td></tr>
       <tr><td>Scegliere da lista interattiva</td><td class="cmd">ct</td></tr>
       <tr><td>&nbsp;&nbsp;→ filtrare la lista</td><td class="cmd">scrivo qualche lettera</td></tr>
       <tr><td>&nbsp;&nbsp;→ muovermi</td><td class="cmd">frecce ↑ ↓</td></tr>
@@ -50,39 +50,52 @@
       <tr><td>&nbsp;&nbsp;→ il <b>Tab</b> completa anche le sottocartelle</td><td class="cmd">ct Bilancio/ &nbsp;poi&nbsp; Tab</td></tr>
       <tr><td>Aprire la <b>root del vault</b> (Coordinatrice Tara)</td><td class="cmd">ct .</td></tr>
 
-      <tr class="grp"><td colspan="2">Durante la sessione</td></tr>
+      <tr class="grp"><td colspan="2">② Durante la sessione</td></tr>
       <tr><td>Staccarmi lasciando Claude in esecuzione</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; d</td></tr>
-      <tr><td>Rientrare nella sessione di prima</td><td class="cmd">ct NomeProgetto</td></tr>
       <tr><td>Scorrere indietro nella cronologia</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; [ &nbsp;(q esce)</td></tr>
 
-      <tr class="grp"><td colspan="2">Riconnettersi a una sessione aperta</td></tr>
+      <tr class="grp"><td colspan="2">③ Riconnettersi a una sessione aperta</td></tr>
       <tr><td>Vedere l'elenco con i nomi</td><td class="cmd">tmux ls</td></tr>
       <tr><td>Rientrare in una sessione <b>(modo semplice)</b></td><td class="cmd">ct NomeProgetto</td></tr>
       <tr><td>Rientrare con tmux "puro" — <b>il <span class="cmd">-t</span> è obbligatorio</b></td><td class="cmd">tmux attach -t NomeProgetto</td></tr>
-      <tr><td>Sessione segnata <b>(attached)</b> ma nessuna finestra aperta → <b>forzare</b> l'aggancio</td><td class="cmd">tmux attach -d -t NomeProgetto</td></tr>
+      <tr><td>Sessione <b>(attached)</b> ma nessuna finestra aperta → <b>forzare</b> l'aggancio</td><td class="cmd">tmux attach -d -t NomeProgetto</td></tr>
       <tr><td>Saltare tra le sessioni <b>senza uscire</b> (menu a frecce)</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; s</td></tr>
 
-      <tr class="grp"><td colspan="2">Gestione sessioni</td></tr>
-      <tr><td>Vedere le sessioni tmux aperte</td><td class="cmd">tmux ls</td></tr>
-      <tr><td>Chiudere del tutto una sessione</td><td class="cmd">tmux kill-session -t Nome</td></tr>
-
-      <tr class="grp"><td colspan="2">Chiudere sessioni "ostinate"</td></tr>
+      <tr class="grp"><td colspan="2">④ Chiudere una sessione — definitivamente</td></tr>
+      <tr><td>Da dentro, <b>modo pulito</b>: esco da Claude, poi dalla shell</td><td class="cmd">/exit &nbsp;poi&nbsp; exit</td></tr>
+      <tr><td>Da dentro, <b>rapido</b> (chiude il pannello, conferma con y)</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; x &nbsp;poi&nbsp; y</td></tr>
+      <tr><td>Da fuori, <b>per nome</b></td><td class="cmd">tmux kill-session -t Nome</td></tr>
       <tr><td>Nome con <b>spazi</b> dentro → virgolette doppie</td><td class="cmd">tmux kill-session -t "Fatture Fornitori Esteri"</td></tr>
       <tr><td>Nome con <b>caratteri strani/invisibili</b> (es. <span class="cmd">\033</span>) → apici singoli</td><td class="cmd">tmux kill-session -t '\033'</td></tr>
+
+      <tr class="grp"><td colspan="2">⑤ Fare pulizia (più sessioni insieme)</td></tr>
+      <tr><td>Vedere quante sessioni ho aperte</td><td class="cmd">tmux ls</td></tr>
       <tr><td>Chiudere <b>tutte tranne</b> quella in cui sono ora <b>(più sicuro)</b></td><td class="cmd">tmux kill-session -a</td></tr>
       <tr><td>Piazza pulita <b>totale</b> (chiude anche quella in uso!)</td><td class="cmd">tmux kill-server</td></tr>
     </tbody>
   </table>
 
   <p class="warn">
-    <b>⚠️ Attenzione ai due comandi "grossi".</b><br>
+    <b>⚠️ Attenzione ai due comandi "grossi" del gruppo ⑤.</b><br>
     &nbsp;•&nbsp; <span class="cmd">tmux kill-server</span> = <b>nuke totale</b>: chiude TUTTE le sessioni, <b>compresa quella dove sta girando Claude Code adesso</b>. Il pannello ti si chiude di colpo. Usalo solo quando hai <b>finito tutto</b>.<br>
     &nbsp;•&nbsp; <span class="cmd">tmux kill-session -a</span> = scelta <b>di tutti i giorni</b>: fa pulizia delle vecchie sessioni ma <b>risparmia quella in cui sei ora</b>.<br>
     &nbsp;•&nbsp; Regola pratica: <b>default <span class="cmd">-a</span></b>, <span class="cmd">kill-server</span> solo a fine giornata.
   </p>
 
   <p class="note">
-    <b>Aprire cartelle "fuori lista".</b> &nbsp;•&nbsp; La lista di <span class="cmd">ct</span> mostra <b>solo i progetti di primo livello</b> dentro <span class="cmd">Automazioni</span>.
+    <b>Chiudere per davvero (gruppo ④).</b> &nbsp;•&nbsp; Una sessione tmux resta viva finché <b>dentro c'è qualcosa in esecuzione</b>: appena la svuoti, <b>sparisce da sola</b> dalla lista <span class="cmd">tmux ls</span>.
+    &nbsp;•&nbsp; Perciò il modo pulito da dentro è <b>doppio "esci"</b>: prima <span class="cmd">/exit</span> (chiude Claude Code), poi <span class="cmd">exit</span> (chiude la shell) → la corsia si chiude.
+    &nbsp;•&nbsp; <b>Non confonderlo con</b> <span class="cmd">Ctrl-b d</span>: quello è il <b>detach</b>, l'opposto — lascia la sessione <b>appesa</b> in background.
+  </p>
+
+  <p class="note">
+    <b>Riconnettersi senza sbagliare (gruppo ③).</b> &nbsp;•&nbsp; Il modo più semplice per rientrare è lo <b>stesso <span class="cmd">ct NomeProgetto</span></b> che usi per aprire: se la sessione esiste già ti ci <b>riaggancia</b>, non ne crea una nuova.
+    &nbsp;•&nbsp; Con tmux "puro" ricorda il <b><span class="cmd">-t</span></b>: si scrive <span class="cmd">tmux attach -t Nome</span>, <b>non</b> <span class="cmd">tmux attach Nome</span> (senza <span class="cmd">-t</span> sembra "non funzionare").
+    &nbsp;•&nbsp; Se una sessione è segnata <b>(attached)</b> ma <b>non hai nessuna finestra aperta</b> con quel nome, è un <b>aggancio fantasma</b> (un terminale vecchio o l'altro Mac): sbloccala con <span class="cmd">tmux attach -d -t Nome</span> — il <span class="cmd">-d</span> stacca il fantasma e aggancia te.
+  </p>
+
+  <p class="note">
+    <b>Aprire cartelle "fuori lista" (gruppo ①).</b> &nbsp;•&nbsp; La lista di <span class="cmd">ct</span> mostra <b>solo i progetti di primo livello</b> dentro <span class="cmd">Automazioni</span>.
     &nbsp;•&nbsp; Per entrare in una <b>sottocartella</b> scrivi il percorso: <span class="cmd">ct Progetto/sottocartella</span> (il <kbd>Tab</kbd> ora completa anche queste).
     &nbsp;•&nbsp; Per aprire <span class="cmd">Automazioni</span> stessa — che è il <b>contenitore</b>, non un elemento della lista — usa <span class="cmd">ct .</span> (fa partire la Coordinatrice Tara).
   </p>
@@ -90,13 +103,7 @@
   <p class="note">
     <b>Regola sui nomi.</b> &nbsp;•&nbsp; Nome con <b>spazi</b> → sempre tra <b>"virgolette doppie"</b>. Se scrivi il nome senza virgolette il terminale legge ogni parola come pezzo separato e risponde <span class="cmd">too many arguments</span>.
     &nbsp;•&nbsp; Nome con caratteri di controllo o invisibili (come <span class="cmd">\033</span>, il carattere ESC) → tra <b>'apici singoli'</b>, così il terminale lo legge alla lettera senza interpretarlo.
-    &nbsp;•&nbsp; Una sessione <b>(attached)</b> la stai usando ora: <b>non chiuderla</b>. Chiudi solo quelle <b>senza</b> (attached).
-  </p>
-
-  <p class="note">
-    <b>Riconnettersi senza sbagliare.</b> &nbsp;•&nbsp; Il modo più semplice per rientrare è lo <b>stesso <span class="cmd">ct NomeProgetto</span></b> che usi per aprire: se la sessione esiste già ti ci <b>riaggancia</b>, non ne crea una nuova.
-    &nbsp;•&nbsp; Con tmux "puro" ricorda il <b><span class="cmd">-t</span></b>: si scrive <span class="cmd">tmux attach -t Nome</span>, <b>non</b> <span class="cmd">tmux attach Nome</span> (senza <span class="cmd">-t</span> sembra "non funzionare").
-    &nbsp;•&nbsp; Se una sessione è segnata <b>(attached)</b> ma <b>non hai nessuna finestra aperta</b> con quel nome, è un <b>aggancio fantasma</b> (un terminale vecchio o l'altro Mac): sbloccala con <span class="cmd">tmux attach -d -t Nome</span> — il <span class="cmd">-d</span> stacca il fantasma e aggancia te.
+    &nbsp;•&nbsp; Una sessione <b>(attached)</b> di solito la stai usando ora: <b>non chiuderla</b>. L'eccezione è l'aggancio fantasma qui sopra (gruppo ③).
   </p>
 
   <p class="note">
