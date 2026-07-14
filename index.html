@@ -72,6 +72,11 @@
       <tr><td>Vedere quante sessioni ho aperte</td><td class="cmd">tmux ls</td></tr>
       <tr><td>Chiudere <b>tutte tranne</b> quella in cui sono ora <b>(più sicuro)</b></td><td class="cmd">tmux kill-session -a</td></tr>
       <tr><td>Piazza pulita <b>totale</b> (chiude anche quella in uso!)</td><td class="cmd">tmux kill-server</td></tr>
+
+      <tr class="grp"><td colspan="2">⑥ Dopo un riavvio del Mac — recuperare una conversazione</td></tr>
+      <tr><td>Riprendere una conversazione di prima (<b>scegli da lista</b>)</td><td class="cmd">claude --resume</td></tr>
+      <tr><td>Riprendere <b>al volo l'ultima</b> di questa cartella</td><td class="cmd">claude --continue</td></tr>
+      <tr><td>Prima entro nella cartella giusta con</td><td class="cmd">ct NomeProgetto</td></tr>
     </tbody>
   </table>
 
@@ -92,6 +97,18 @@
     <b>Se lavori via SSH dal MacBook</b> (le sessioni girano sul Mini M4). &nbsp;•&nbsp; tmux è fatto apposta per <b>sopravvivere alle disconnessioni</b>: se chiudi il coperchio, cade il WiFi o chiudi il Terminale, la sessione <b>resta viva sul Mini</b> — così ritrovi il lavoro. È il motivo per cui col tempo se ne accumulano tante di vecchie.
     &nbsp;•&nbsp; Perciò <span class="cmd">/exit</span> dal MacBook non basta a colpo sicuro: per chiudere <b>una</b> sessione per davvero usa <span class="cmd">Ctrl-b x</span> → <span class="cmd">y</span> — è tmux stesso che la elimina <b>lì sul Mini</b>, non conta che tu sia a distanza.
     &nbsp;•&nbsp; Per <b>svuotare il mucchio</b> accumulato: entra in una sessione qualsiasi e dai <span class="cmd">tmux kill-session -a</span> (tiene solo quella in cui sei). Oppure una per nome: <span class="cmd">tmux kill-session -t 26</span>.
+  </p>
+
+  <p class="warn">
+    <b>⚠️ Disconnessione ≠ riavvio del Mac.</b> &nbsp;•&nbsp; tmux sopravvive a WiFi caduto, coperchio chiuso, Terminale chiuso, <span class="cmd">Ctrl-b d</span> — <b>ma NON sopravvive al riavvio del Mac</b>: tmux tiene tutto in memoria (RAM), quindi allo spegnimento <b>tutte le corsie muoiono insieme</b>. (È successo il 14/07/2026: un update del Mac ha portato via 5 corsie.)
+    &nbsp;•&nbsp; <b>Non è un guasto</b> e non c'è "servizio da riavviare": è il funzionamento normale di tmux.
+  </p>
+
+  <p class="note">
+    <b>Le due reti di sicurezza contro il riavvio (gruppo ⑥).</b>
+    &nbsp;•&nbsp; <b>Ripristino automatico del layout</b> — sono installati i plugin <span class="cmd">tmux-resurrect</span> + <span class="cmd">tmux-continuum</span> (in <span class="cmd">~/.tmux/plugins</span>, config in <span class="cmd">~/.tmux.conf</span>): salvano ogni 5 minuti e, al riavvio, <b>ti riaprono le corsie nelle cartelle giuste</b>. Attenzione: ripristinano finestre e cartelle, <b>non</b> la conversazione di Claude che c'era dentro.
+    &nbsp;•&nbsp; <b>La conversazione la recuperi tu</b> con <span class="cmd">claude --resume</span>: entra nella cartella (<span class="cmd">ct Progetto</span>), lancia <span class="cmd">claude --resume</span> e <b>scegli dalla lista</b> quella interrotta (o <span class="cmd">claude --continue</span> per l'ultima). Le conversazioni sono salvate su disco, un riavvio <b>non le cancella</b>.
+    &nbsp;•&nbsp; <b>La rete più solida resta scriverti lo stato</b>: <span class="cmd">/chiudi-la-corsia</span> mette lo "Stato corrente" nel CLAUDE.md del progetto — così anche una perdita totale = ripartenza a freddo con tutto il contesto.
   </p>
 
   <p class="note">
@@ -121,7 +138,7 @@
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-10
+    · Ultimo aggiornamento: 2026-07-14
   </footer>
 </body>
 </html>
