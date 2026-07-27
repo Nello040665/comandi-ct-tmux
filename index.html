@@ -60,6 +60,8 @@
       <tr><td>Rientrare con tmux "puro" — <b>il <span class="cmd">-t</span> è obbligatorio</b></td><td class="cmd">tmux attach -t NomeProgetto</td></tr>
       <tr><td>Sessione <b>(attached)</b> ma nessuna finestra aperta → <b>forzare</b> l'aggancio</td><td class="cmd">tmux attach -d -t NomeProgetto</td></tr>
       <tr><td>Saltare tra le sessioni <b>senza uscire</b> (menu a frecce)</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; s</td></tr>
+      <tr><td>Rinominare una sessione — <b>da fuori</b> (il modo affidabile)</td><td class="cmd">tmux rename-session -t VecchioNome NuovoNome</td></tr>
+      <tr><td>Rinominare — <b>da dentro</b>, tasti</td><td class="cmd">Ctrl-b &nbsp;poi&nbsp; $</td></tr>
 
       <tr class="grp"><td colspan="2">④ Chiudere una sessione — definitivamente</td></tr>
       <tr><td>Da dentro, <b>modo pulito</b>: esco da Claude, poi dalla shell</td><td class="cmd">/exit &nbsp;poi&nbsp; exit</td></tr>
@@ -117,6 +119,14 @@
     &nbsp;•&nbsp; Se una sessione è segnata <b>(attached)</b> ma <b>non hai nessuna finestra aperta</b> con quel nome, è un <b>aggancio fantasma</b> (un terminale vecchio o l'altro Mac): sbloccala con <span class="cmd">tmux attach -d -t Nome</span> — il <span class="cmd">-d</span> stacca il fantasma e aggancia te.
   </p>
 
+  <p class="warn">
+    <b>⚠️ Rinominare da dentro (gruppo ③) — perché numero al posto del nome, e bug barra.</b><br>
+    &nbsp;•&nbsp; Se una sessione nasce con <b>nome numerico</b> (0, 1, 2…) è perché è stata creata con <span class="cmd">tmux</span> "nudo", <b>senza <span class="cmd">-s Nome</span></b> — capita aprendo un tab e digitando <span class="cmd">tmux</span> invece di <span class="cmd">ct NomeProgetto</span>. <span class="cmd">ct</span>/<span class="cmd">ctl</span> assegnano sempre il nome della cartella, quindi con quelli non succede mai.<br>
+    &nbsp;•&nbsp; <b>Rimedio definitivo:</b> mai <span class="cmd">tmux</span> da solo, sempre <span class="cmd">ct NomeProgetto</span>.<br>
+    &nbsp;•&nbsp; <b>Se la barra "$" in basso non risponde ai tasti</b> (bug visualizzazione iTerm2): non insistere lì. Passa al comando esterno <span class="cmd">tmux rename-session -t VecchioNome NuovoNome</span>, digitato in un pannello normale — bypassa del tutto il problema.<br>
+    &nbsp;•&nbsp; <b>Se provi con <span class="cmd">Ctrl-b :</span></b> (due punti) e scrivendo <span class="cmd">rename-session NuovoNome</span> tmux risponde <span class="cmd">comando sconosciuto</span>: il Mac ha sostituito il trattino <span class="cmd">-</span> con un trattino lungo <span class="cmd">–</span> (sostituzione automatica testo). Disattivala in Preferenze di Sistema → Tastiera → Testo → spegni "Sostituzioni ortografiche automatiche", oppure usa direttamente il comando esterno sopra.
+  </p>
+
   <p class="note">
     <b>Aprire cartelle "fuori lista" (gruppo ①).</b> &nbsp;•&nbsp; La lista di <span class="cmd">ct</span> mostra <b>solo i progetti di primo livello</b> dentro <span class="cmd">Automazioni</span>.
     &nbsp;•&nbsp; Per entrare in una <b>sottocartella</b> scrivi il percorso: <span class="cmd">ct Progetto/sottocartella</span> (il <kbd>Tab</kbd> ora completa anche queste).
@@ -138,7 +148,7 @@
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-14
+    · Ultimo aggiornamento: 2026-07-27 08:43
   </footer>
 </body>
 </html>
