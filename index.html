@@ -79,6 +79,13 @@
       <tr><td>Riprendere una conversazione di prima (<b>scegli da lista</b>)</td><td class="cmd">claude --resume</td></tr>
       <tr><td>Riprendere <b>al volo l'ultima</b> di questa cartella</td><td class="cmd">claude --continue</td></tr>
       <tr><td>Prima entro nella cartella giusta con</td><td class="cmd">ct NomeProgetto</td></tr>
+
+      <tr class="grp"><td colspan="2">⑦ Sapere quando è stata scritta una chat</td></tr>
+      <tr><td>Data/ora della chat che ho aperto <b>ora</b></td><td class="cmd">già in basso: chat 28/07 14:54</td></tr>
+      <tr><td><b>Elenco</b> delle chat di questa cartella (dalla più recente)</td><td class="cmd">ctwhen</td></tr>
+      <tr><td>&nbsp;&nbsp;→ cronologia oraria di una di esse (il numero della lista)</td><td class="cmd">ctwhen 3</td></tr>
+      <tr><td>&nbsp;&nbsp;→ mostrare anche le <b>risposte di Claude</b>, non solo le mie</td><td class="cmd">ctwhen 3 -v</td></tr>
+      <tr><td>Orario a lato di <b>ogni riga</b> del terminale</td><td class="cmd">menu View → Show Timestamps</td></tr>
     </tbody>
   </table>
 
@@ -145,10 +152,31 @@
     &nbsp;•&nbsp; <span class="cmd">ct</span> da solo apre la <b>lista</b> dei progetti; per la <b>root</b> del vault (Coordinatrice Tara) si usa <span class="cmd">ct .</span>
   </p>
 
+  <p class="warn">
+    <b>⚠️ Gli orari di iTerm2 mentono sulle chat riaperte (gruppo ⑦).</b><br>
+    &nbsp;•&nbsp; <b>View → Show Timestamps</b> scrive l'orario a lato di ogni riga, ma dice <b>quando quella riga è apparsa a schermo</b>, non quando il messaggio è stato scritto.<br>
+    &nbsp;•&nbsp; Perciò quando riapri una vecchia conversazione (<span class="cmd">claude --resume</span>) Claude <b>ristampa</b> tutta la chat adesso, e iTerm2 la timbra con <b>l'ora di adesso</b>: una chat di due settimane fa sembra di un minuto fa. <b>Non è un guasto</b>, è cosa fa il terminale.<br>
+    &nbsp;•&nbsp; Regola pratica: gli orari di iTerm2 valgono <b>solo sulla chat viva</b>. Per una chat riaperta guarda il campo <span class="cmd">chat GG/MM HH:MM</span> in basso, o usa <span class="cmd">ctwhen</span>.
+  </p>
+
+  <p class="note">
+    <b>Da dove esce la data vera (gruppo ⑦).</b> &nbsp;•&nbsp; Ogni conversazione è salvata in un file <span class="cmd">.jsonl</span> dentro <span class="cmd">~/.claude/projects/</span>, e <b>ogni messaggio porta il timestamp del momento in cui è nato</b>. Quello non cambia mai, nemmeno riaprendo. È la fonte che usano sia il campo in basso sia <span class="cmd">ctwhen</span>.
+    &nbsp;•&nbsp; <b>Il campo <span class="cmd">chat GG/MM HH:MM</span></b> nella barra in basso è automatico: c'è sempre, in ogni corsia, senza digitare niente. Dice <b>quando è iniziata</b> la conversazione aperta.
+    &nbsp;•&nbsp; <b><span class="cmd">ctwhen</span> serve quando il campo non basta</b>: per scegliere <b>quale</b> chat riaprire, o per sapere <b>a che ora</b> dentro una chat è stata detta una cosa. Configurato in <span class="cmd">~/.zshrc</span>, script in <span class="cmd">~/.claude/bin/ctwhen.py</span>.
+  </p>
+
+  <p class="note">
+    <b>Usare <span class="cmd">ctwhen</span> a mano.</b> &nbsp;•&nbsp; Guarda <b>la cartella in cui ti trovi</b>: dalla root del vault vedi le chat di Tara, da <span class="cmd">Automazioni/Bilancio</span> quelle di Bilancio. Non esiste un elenco unico — prima entra nel progetto con <span class="cmd">ct NomeProgetto</span>.
+    &nbsp;•&nbsp; <b>Passo 1</b>: dai <span class="cmd">ctwhen</span> nudo. Esce la lista numerata: per ogni chat data d'inizio, ora dell'ultimo messaggio, quanti giorni fa, e <b>la tua prima frase</b> — che è il modo più rapido per riconoscerla.
+    &nbsp;•&nbsp; <b>Passo 2</b>: preso il numero dalla lista, dai <span class="cmd">ctwhen 3</span>. Escono i <b>tuoi</b> messaggi con l'ora di ognuno; aggiungi <span class="cmd">-v</span> se vuoi anche le risposte di Claude.
+    &nbsp;•&nbsp; <b>I numeri non sono nomi</b>: sono solo la posizione nella lista di quel momento. Apri una chat nuova e la 3 diventa la 4 — perciò rifai sempre <span class="cmd">ctwhen</span> prima di usare il numero.
+    &nbsp;•&nbsp; Solo lettura: <span class="cmd">ctwhen</span> <b>non apre e non modifica</b> nessuna conversazione, si limita a guardare. Per riaprire davvero serve <span class="cmd">claude --resume</span> (gruppo ⑥).
+  </p>
+
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-27 08:43
+    · Ultimo aggiornamento: 2026-07-28 15:12
   </footer>
 </body>
 </html>
