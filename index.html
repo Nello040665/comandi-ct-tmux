@@ -86,6 +86,16 @@
       <tr><td>&nbsp;&nbsp;→ cronologia oraria di una di esse (il numero della lista)</td><td class="cmd">ctwhen 3</td></tr>
       <tr><td>&nbsp;&nbsp;→ mostrare anche le <b>risposte di Claude</b>, non solo le mie</td><td class="cmd">ctwhen 3 -v</td></tr>
       <tr><td>Orario a lato di <b>ogni riga</b> del terminale</td><td class="cmd">menu View → Show Timestamps</td></tr>
+
+      <tr class="grp"><td colspan="2">⑧ Collegarsi al Mini dal MacBook — <b>et</b> (viene prima di tutto il resto)</td></tr>
+      <tr><td>Collegarmi al Mini <b>(modo nuovo, sopravvive al viaggio)</b></td><td class="cmd">et minicasa4@100.105.13.74</td></tr>
+      <tr><td>&nbsp;&nbsp;→ poi apro il progetto <b>come sempre</b></td><td class="cmd">ct NomeProgetto</td></tr>
+      <tr><td>Modo vecchio (cade quando chiudo il coperchio)</td><td class="cmd">ssh minicasa4@100.105.13.74</td></tr>
+      <tr><td>Controllare la versione — <b>deve essere uguale sui due Mac</b></td><td class="cmd">et --version</td></tr>
+      <tr><td>Vedere se il server è acceso <b>sul Mini</b></td><td class="cmd">brew services list | grep et</td></tr>
+      <tr><td>Riavviarlo se non risponde <b>(sul Mini)</b></td><td class="cmd">brew services restart et</td></tr>
+      <tr><td>Chat sulla <b>root</b> senza Coordinatrice, ma <b>protetta</b> da tmux</td><td class="cmd">tmux new -s Root -c ~ &nbsp;poi&nbsp; claude</td></tr>
+      <tr><td><b>Seconda</b> corsia sullo stesso progetto (nome diverso, niente <span class="cmd">-A</span>)</td><td class="cmd">tmux new -s Bilancio-2 -c ~/Automazioni/Bilancio</td></tr>
     </tbody>
   </table>
 
@@ -106,6 +116,58 @@
     <b>Se lavori via SSH dal MacBook</b> (le sessioni girano sul Mini M4). &nbsp;•&nbsp; tmux è fatto apposta per <b>sopravvivere alle disconnessioni</b>: se chiudi il coperchio, cade il WiFi o chiudi il Terminale, la sessione <b>resta viva sul Mini</b> — così ritrovi il lavoro. È il motivo per cui col tempo se ne accumulano tante di vecchie.
     &nbsp;•&nbsp; Perciò <span class="cmd">/exit</span> dal MacBook non basta a colpo sicuro: per chiudere <b>una</b> sessione per davvero usa <span class="cmd">Ctrl-b x</span> → <span class="cmd">y</span> — è tmux stesso che la elimina <b>lì sul Mini</b>, non conta che tu sia a distanza.
     &nbsp;•&nbsp; Per <b>svuotare il mucchio</b> accumulato: entra in una sessione qualsiasi e dai <span class="cmd">tmux kill-session -a</span> (tiene solo quella in cui sei). Oppure una per nome: <span class="cmd">tmux kill-session -t 26</span>.
+  </p>
+
+  <p class="note">
+    <b>et — il collegamento che sopravvive al viaggio ufficio→casa (gruppo ⑧, installato 29/07/2026).</b>
+    &nbsp;•&nbsp; Con <span class="cmd">ssh</span>, chiudere il coperchio <b>uccide il collegamento</b>: a casa ritrovi geroglifici, righe di <span class="cmd">command not found</span> e il prompt del MacBook, e devi riagganciare <b>ogni corsia a mano</b>.
+    &nbsp;•&nbsp; <b>Eternal Terminal</b> (<span class="cmd">et</span>) fa lo stesso mestiere di ssh ma <b>si ricuce da solo</b> quando la rete torna: riapri il portatile, aspetti qualche secondo e sei <b>esattamente dove eri</b>, senza digitare niente. Provato dal vivo il 29/07/2026: connessione staccata e ripresa, sessione intatta.
+    &nbsp;•&nbsp; <b>Cambia solo la prima parola</b>: al posto di <span class="cmd">ssh</span> scrivi <span class="cmd">et</span>. Poi <span class="cmd">ct NomeProgetto</span> come sempre.
+    &nbsp;•&nbsp; L'indirizzo <span class="cmd">100.105.13.74</span> è il Mini su <b>Tailscale</b>: è stabile e non passa dal server in Germania.
+  </p>
+
+  <p class="note">
+    <b>I tre gusci — perché servono tutti e tre.</b>
+    &nbsp;•&nbsp; <b><span class="cmd">et</span></b> protegge dal <b>viaggio</b>: sonno del portatile, cambio di rete.
+    &nbsp;•&nbsp; <b>tmux</b> protegge da <b>tutto il resto</b>: iTerm2 chiuso, riavvio del Mini, aggancio da un altro computer.
+    &nbsp;•&nbsp; dentro c'è <b>Claude Code</b>, il lavoro vero.
+    &nbsp;•&nbsp; Non sono ridondanti, coprono guasti diversi: <b>tmux resta indispensabile anche con et</b>. Ecco perché la strada normale resta <span class="cmd">ct</span>, che i gusci te li mette nell'ordine giusto.
+  </p>
+
+  <p class="warn">
+    <b>⚠️ et — le tre cose che lo fanno inciampare.</b><br>
+    &nbsp;•&nbsp; <b>Le versioni devono combaciare</b> tra MacBook e Mini: se aggiorni Homebrew su una sola macchina, il collegamento smette di funzionare <b>senza un motivo evidente</b>. Aggiorna sempre <b>tutti e due</b>, e controlla con <span class="cmd">et --version</span>.<br>
+    &nbsp;•&nbsp; <b>Il server sul Mini riparte al login, non all'accensione</b> (installato senza permessi di amministratore). Dopo un riavvio del Mini può servire <span class="cmd">brew services restart et</span>.<br>
+    &nbsp;•&nbsp; <b>Non serve per i file</b>: per <span class="cmd">scp</span> e i tunnel si usa ancora ssh. <b>ssh resta sempre disponibile</b> come piano B — con et non ti puoi chiudere fuori.
+  </p>
+
+  <p class="warn">
+    <b>⚠️ Staccare ≠ chiudere</b> — la confusione più costosa.<br>
+    &nbsp;•&nbsp; Chiudi la tab, cade la rete, chiudi il coperchio → la corsia è <b>staccata</b>: <b>resta viva</b> sul Mini e la ritrovi.<br>
+    &nbsp;•&nbsp; <span class="cmd">/exit</span> dentro Claude Code → la corsia è <b>finita</b>: <span class="cmd">ct</span> avvia <span class="cmd">claude</span> come <b>unico processo</b> della sessione, quindi quando Claude esce tmux chiude tutto.<br>
+    &nbsp;•&nbsp; <span class="cmd">tmux kill-session</span> → <b>uccisa</b>.<br>
+    &nbsp;•&nbsp; Se le corsie vecchie si accumulano è perché le hai <b>staccate</b> tutte, non chiuse.
+  </p>
+
+  <p class="note">
+    <b>Nomi delle sessioni — le tre opzioni che contano.</b>
+    &nbsp;•&nbsp; <span class="cmd">-s Nome</span> = come si chiamerà &nbsp;·&nbsp; <span class="cmd">-c Cartella</span> = dove nasce &nbsp;·&nbsp; <span class="cmd">-A</span> = riaggancia se esiste già, invece di creare.
+    &nbsp;•&nbsp; Regola: <b><span class="cmd">-A</span> quando vuoi <i>ritrovare</i>, senza <span class="cmd">-A</span> quando vuoi <i>affiancare</i></b> (seconda corsia sullo stesso progetto → nome diverso e niente <span class="cmd">-A</span>).
+    &nbsp;•&nbsp; <b>Trappola:</b> se il <b>nome</b> di una sessione non corrisponde alla <b>cartella</b> in cui è aperta, non usare <span class="cmd">ct Nome</span> per rientrare — se la sessione fosse morta te ne creerebbe una <b>nella cartella sbagliata</b>. Usa <span class="cmd">tmux attach -t Nome</span>, che riaggancia e basta.
+  </p>
+
+  <p class="note">
+    <b>Sono dentro tmux o no?</b> &nbsp;•&nbsp; La verifica giusta è <span class="cmd">echo $TMUX</span>: se risponde <b>vuoto</b>, sei <b>fuori</b> da tmux e quella chat <b>non è protetta</b> (cade la rete → la perdi, e serve <span class="cmd">claude --resume</span>).
+    &nbsp;•&nbsp; <b>Non</b> fidarti di <span class="cmd">tmux display-message -p "#S"</span>: risponde per il <b>client agganciato</b>, non per chi lo esegue — sembra dire di sì anche quando sei fuori.
+    &nbsp;•&nbsp; Capita aprendo Claude a mano con <span class="cmd">ssh</span> + <span class="cmd">claude</span> invece che con <span class="cmd">ct</span>. Rimedio: <span class="cmd">tmux new -s Nome -c ~</span> <b>prima</b> di lanciare <span class="cmd">claude</span> — l'ordine conta, dopo non si rimedia più.
+  </p>
+
+  <p class="warn">
+    <b>⚠️ <span class="cmd">tmux -CC</span> (control mode di iTerm2) — provato e scartato il 29/07/2026.</b><br>
+    &nbsp;•&nbsp; Trasforma le finestre tmux in <b>tab native di iTerm2</b> (scrollback e ⌘F normali). Bello, ma <b>non riconnette da solo</b>: il comando lo ridigiti comunque.<br>
+    &nbsp;•&nbsp; In control mode <b><span class="cmd">Ctrl-b</span> non funziona più</b> (comanda iTerm2) — sembra che tmux si sia rotto, e invece è così di progetto.<br>
+    &nbsp;•&nbsp; <b><span class="cmd">⌘W</span> può uccidere una corsia</b>: alla domanda <i>Kill / Hide / Detach</i> la risposta sicura è sempre <b>Detach</b>.<br>
+    &nbsp;•&nbsp; Con una sola finestra per corsia (com'è qui) <b>non porta niente</b>, e con tmux 3.6b le tab cadevano. <b>Non usarlo</b>: la soluzione al problema del viaggio è <span class="cmd">et</span>.
   </p>
 
   <p class="warn">
@@ -176,7 +238,7 @@
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-28 15:12
+    · Ultimo aggiornamento: 2026-07-29 16:30
   </footer>
 </body>
 </html>
