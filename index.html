@@ -137,7 +137,8 @@
   <p class="warn">
     <b>⚠️ et — le tre cose che lo fanno inciampare.</b><br>
     &nbsp;•&nbsp; <b>Le versioni devono combaciare</b> tra MacBook e Mini: se aggiorni Homebrew su una sola macchina, il collegamento smette di funzionare <b>senza un motivo evidente</b>. Aggiorna sempre <b>tutti e due</b>, e controlla con <span class="cmd">et --version</span>.<br>
-    &nbsp;•&nbsp; <b>Il server sul Mini riparte al login, non all'accensione</b> (installato senza permessi di amministratore). Dopo un riavvio del Mini può servire <span class="cmd">brew services restart et</span>.<br>
+    &nbsp;•&nbsp; <b>Il server sul Mini riparte al login, non all'accensione</b> — <b>è una scelta</b>. Dopo un riavvio del Mini può servire <span class="cmd">brew services restart et</span>. <b>Non</b> provare a farlo partire all'accensione con <span class="cmd">sudo brew services start et</span>: fallisce con <span class="cmd">Bootstrap failed: 5</span> e prende la proprietà root dei file, rendendo scomodo <span class="cmd">brew upgrade et</span> — cioè proprio quello che con et serve fare spesso. (Provato e annullato il 29/07/2026.)<br>
+    &nbsp;•&nbsp; <b>Fermare il servizio stacca tutte le connessioni et in corso</b>, all'istante. Fallo in un momento tranquillo, non mentre stai lavorando.<br>
     &nbsp;•&nbsp; <b>Non serve per i file</b>: per <span class="cmd">scp</span> e i tunnel si usa ancora ssh. <b>ssh resta sempre disponibile</b> come piano B — con et non ti puoi chiudere fuori.
   </p>
 
@@ -238,7 +239,7 @@
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-29 16:30
+    · Ultimo aggiornamento: 2026-07-29 17:45
   </footer>
 </body>
 </html>
