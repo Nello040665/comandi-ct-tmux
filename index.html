@@ -81,7 +81,8 @@
       <tr><td>Prima entro nella cartella giusta con</td><td class="cmd">ct NomeProgetto</td></tr>
 
       <tr class="grp"><td colspan="2">⑦ Sapere quando è stata scritta una chat</td></tr>
-      <tr><td>Data/ora della chat che ho aperto <b>ora</b></td><td class="cmd">già in basso: chat 28/07 14:54</td></tr>
+      <tr><td>Ora dell'<b>ultimo messaggio</b> di questa chat (per capire quale corsia ho lasciato ferma)</td><td class="cmd">già in basso: ult. 18:04</td></tr>
+      <tr><td>&nbsp;&nbsp;→ se la chat è di <b>un altro giorno</b> compare anche la data</td><td class="cmd">ult. 28/07 14:54</td></tr>
       <tr><td><b>Elenco</b> delle chat di questa cartella (dalla più recente)</td><td class="cmd">ctwhen</td></tr>
       <tr><td>&nbsp;&nbsp;→ cronologia oraria di una di esse (il numero della lista)</td><td class="cmd">ctwhen 3</td></tr>
       <tr><td>&nbsp;&nbsp;→ mostrare anche le <b>risposte di Claude</b>, non solo le mie</td><td class="cmd">ctwhen 3 -v</td></tr>
@@ -96,6 +97,14 @@
       <tr><td>Riavviarlo se non risponde <b>(sul Mini)</b></td><td class="cmd">brew services restart et</td></tr>
       <tr><td>Chat sulla <b>root</b> senza Coordinatrice, ma <b>protetta</b> da tmux</td><td class="cmd">tmux new -s Root -c ~ &nbsp;poi&nbsp; claude</td></tr>
       <tr><td><b>Seconda</b> corsia sullo stesso progetto (nome diverso, niente <span class="cmd">-A</span>)</td><td class="cmd">tmux new -s Bilancio-2 -c ~/Automazioni/Bilancio</td></tr>
+
+      <tr class="grp"><td colspan="2">⑨ Capire a colpo d'occhio <b>in quale progetto sono</b> (31/07/2026)</td></tr>
+      <tr><td>Nome del progetto scritto <b>in filigrana</b> nel pannello (badge)</td><td class="cmd">automatico: lo scrive ct e ogni cd</td></tr>
+      <tr><td>Se il badge è <b>troppo grande</b> o va a capo</td><td class="cmd">Settings → Advanced → cerca "badge"</td></tr>
+      <tr><td>&nbsp;&nbsp;→ la <b>larghezza</b> decide quanto testo sta su una riga</td><td class="cmd">Maximum width: 0.30</td></tr>
+      <tr><td>&nbsp;&nbsp;→ l'<b>altezza</b> decide quanto è grande il carattere</td><td class="cmd">Maximum height: 0.05</td></tr>
+      <tr><td>All'avvio di iTerm2: <b>3 tab già collegate</b> (1 Tara + 2 libere)</td><td class="cmd">automatico: arrangement "Corsia"</td></tr>
+      <tr><td>&nbsp;&nbsp;→ rifare la disposizione dopo averla cambiata</td><td class="cmd">menu Window → Save Window Arrangement</td></tr>
     </tbody>
   </table>
 
@@ -236,10 +245,19 @@
     &nbsp;•&nbsp; Solo lettura: <span class="cmd">ctwhen</span> <b>non apre e non modifica</b> nessuna conversazione, si limita a guardare. Per riaprire davvero serve <span class="cmd">claude --resume</span> (gruppo ⑥).
   </p>
 
+  <p class="note">
+    <b>Il badge: dove sono, senza cercarlo (gruppo ⑨).</b>
+    &nbsp;•&nbsp; Il <b>badge</b> è la scritta grande e translucida in alto a destra <b>dentro</b> il pannello: non ruba nemmeno una riga di testo, perché sta sopra al contenuto. Con più corsie affiancate è il modo più rapido per sapere dove stai scrivendo.
+    &nbsp;•&nbsp; Lo scrive <span class="cmd">ct</span>, e anche ogni <span class="cmd">cd</span>: la funzione <span class="cmd">iterm_badge</span> in <span class="cmd">~/.zshrc</span> è agganciata all'evento "ho cambiato cartella". Quindi vale sia quando apri con <span class="cmd">ct</span>, sia quando ci arrivi a mano con <span class="cmd">cd</span> per aprire una <b>seconda</b> corsia sullo stesso progetto.
+    &nbsp;•&nbsp; <b>Perché non basta l'impostazione di iTerm2</b> (<span class="cmd">\(session.path)</span> nel profilo): quella segue la <b>shell</b>, che non si sposta mai — mostrerebbe sempre la home. È <span class="cmd">ct</span> l'unico che sa dove stai andando, perciò glielo fa dire lui.
+    &nbsp;•&nbsp; Dentro tmux serve <span class="cmd">set -g allow-passthrough on</span> in <span class="cmd">~/.tmux.conf</span>, altrimenti tmux si mangia il messaggio prima che arrivi a iTerm2. È già configurato.
+    &nbsp;•&nbsp; <b>Se un giorno il badge non cambia più</b>: prima di cercare guasti, chiudi iTerm2 con <b>⌘Q</b> (non ⌘W) e riaprilo — molte impostazioni le legge solo quando una sessione <b>nasce</b>.
+  </p>
+
   <footer>
     Riferimento personale — ct = Claude + Tmux · configurato in ~/.zshrc<br>
     Online: <a href="https://nello040665.github.io/comandi-ct-tmux/">nello040665.github.io/comandi-ct-tmux</a>
-    · Ultimo aggiornamento: 2026-07-29 17:45
+    · Ultimo aggiornamento: 2026-07-31 18:45
   </footer>
 </body>
 </html>
